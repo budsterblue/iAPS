@@ -187,14 +187,14 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           submodules: recursive
           ref: ${{ env.TARGET_BRANCH }}
-
-      # Patch Fastlane Match to not print tables
-      - name: Patch Match Tables
-        run: sed -i "" "/puts(Terminal::Table.new(params))/d" $(dirname $(gem which match))/match/table_printer.rb || exit 2
       
       # Install project dependencies
       - name: Install project dependencies
         run: bundle install
+
+      # Patch Fastlane Match to not print tables
+      - name: Patch Match Tables
+        run: sed -i "" "/puts(Terminal::Table.new(params))/d" $(dirname $(gem which match))/match/table_printer.rb || exit 2
 
       # Sync the GitHub runner clock with the Windows time server (workaround as suggested in https://github.com/actions/runner/issues/2996)
       - name: Sync clock
