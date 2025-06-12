@@ -112,7 +112,7 @@ jobs:
   build:
     name: Build
     needs: [validate, check_alive_and_permissions]
-    runs-on: macos-14
+    runs-on: macos-15
     permissions:
       contents: write
     steps:
@@ -121,9 +121,6 @@ jobs:
           if [ ! -z ${{ vars.APP_IDENTIFIER }}  ]; then
             echo "APP_IDENTIFIER=${{ vars.APP_IDENTIFIER }}" >> $GITHUB_ENV
           fi
-
-      - name: Select Xcode version
-        run: "sudo xcode-select --switch /Applications/Xcode_15.3.app/Contents/Developer"
       
       - name: Checkout Repo for syncing
         if: |
